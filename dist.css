@@ -1,21 +1,21 @@
 @font-face {
   font-family: "disp";
   src:
-    url(/wp-content/themes/studio-dado/dist/fonts/ABCArizonaFlare-Regular.woff2)
-      format("woff2"),
-    url(/wp-content/themes/studio-dado/dist/fonts/ABCArizonaFlare-Regular.woff)
-      format("woff");
+    url(/fonts/CinzelDecorative-Regular.ttf)
+      format("truetype");
+    /* url(/wp-content/themes/studio-dado/dist/fonts/ABCArizonaFlare-Regular.woff)
+      format("woff"); */
   font-weight: normal;
-  font-style: normal;
+  font-style: bold;
   font-display: swap;
 }
 @font-face {
   font-family: "sans";
   src:
-    url(/wp-content/themes/studio-dado/dist/fonts/AppDADO-Rg.woff2)
-      format("woff2"),
-    url(/wp-content/themes/studio-dado/dist/fonts/AppDADO-Rg.woff)
-      format("woff");
+    url(/fonts/GoogleSans_17pt-Medium.ttf)
+      format("truetype");
+    /* url(/wp-content/themes/studio-dado/dist/fonts/AppDADO-Rg.woff)
+      format("woff"); */
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -1780,7 +1780,7 @@ nav::-webkit-scrollbar {
 }
 @media (min-width: 650px) {
   .h1 {
-    font-size: 16.2rem;
+    font-size: 14.2rem;
     letter-spacing: -0.02em;
   }
 }
