@@ -24,7 +24,7 @@
       name="description"
       content="FurnWalk is a global Premium furniture sourcing and interior turnkey solutions firm serving multiple spaces including Luxury Homes, Offices, Hospitals, Hotels, Events, Institutes and more."
     />
-    <link rel="canonical" href="https://www.studiodado.com/" />
+    <link rel="canonical" href="https://www.furnwalk.com/" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Home - FurnWalk" />
@@ -32,7 +32,7 @@
       property="og:description"
       content="FurnWalk is a global Premium furniture sourcing and interior turnkey solutions firm serving multiple spaces including Luxury Homes, Offices, Hospitals, Hotels, Events, Institutes and more."
     />
-    <meta property="og:url" content="https://www.studiodado.com/" />
+    <meta property="og:url" content="https://www.furnwalk.com/" />
     <meta property="og:site_name" content="FurnWalk" />
     <meta
       property="article:modified_time"
@@ -45,29 +45,29 @@
         "@graph": [
           {
             "@type": "WebPage",
-            "@id": "https://www.studiodado.com/",
-            "url": "https://www.studiodado.com/",
+            "@id": "https://www.furnwalk.com/",
+            "url": "https://www.furnwalk.com/",
             "name": "Home - FurnWalk",
             "isPartOf": {
-              "@id": "https://www.studiodado.com/#website"
+              "@id": "https://www.furnwalk.com/#website"
             },
             "datePublished": "2025-04-14T18:28:16+00:00",
             "dateModified": "2026-04-17T11:40:50+00:00",
             "description": "FurnWalk is a global Premium furniture sourcing and interior turnkey solutions firm serving multiple spaces including Luxury Homes, Offices, Hospitals, Hotels, Events, Institutes and more.",
             "breadcrumb": {
-              "@id": "https://www.studiodado.com/#breadcrumb"
+              "@id": "https://www.furnwalk.com/#breadcrumb"
             },
             "inLanguage": "en-US",
             "potentialAction": [
               {
                 "@type": "ReadAction",
-                "target": ["https://www.studiodado.com/"]
+                "target": ["https://www.furnwalk.com/"]
               }
             ]
           },
           {
             "@type": "BreadcrumbList",
-            "@id": "https://www.studiodado.com/#breadcrumb",
+            "@id": "https://www.furnwalk.com/#breadcrumb",
             "itemListElement": [
               {
                 "@type": "ListItem",
@@ -78,8 +78,8 @@
           },
           {
             "@type": "WebSite",
-            "@id": "https://www.studiodado.com/#website",
-            "url": "https://www.studiodado.com/",
+            "@id": "https://www.furnwalk.com/#website",
+            "url": "https://www.furnwalk.com/",
             "name": "FurnWalk",
             "description": "FurnWalk is a global Premium furniture sourcing and interior turnkey solutions firm serving multiple spaces including Luxury Homes, Offices, Hospitals, Hotels, Events, Institutes and more.",
             "potentialAction": [
@@ -87,7 +87,7 @@
                 "@type": "SearchAction",
                 "target": {
                   "@type": "EntryPoint",
-                  "urlTemplate": "https://www.studiodado.com/?s={search_term_string}"
+                  "urlTemplate": "https://www.furnwalk.com/?s={search_term_string}"
                 },
                 "query-input": {
                   "@type": "PropertyValueSpecification",
@@ -485,6 +485,14 @@
       }
       gtag("js", new Date());
     </script>
+
+    <link
+       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+
   </head>
 
   <body
@@ -1026,7 +1034,8 @@
                   <div class="col-span-12 s:col-span-14">
                     <a
                       href="./assets/home/dining/w75.jpg"
-                      class="project-card group"
+                      class=" group glightbox"
+                      data-gallery="feats"
                     >
                       <div class="relative overflow-hidden mb-15">
                         <div
@@ -1082,7 +1091,8 @@
                   <div class="col-span-12 s:col-span-5">
                     <a
                       href="./assets/home/sofas/vlcsnap-2026-07-03-12h39m38s480.jpg"
-                      class="project-card group"
+                      class=" group glightbox"
+                      data-gallery="feats"
                     >
                       <div class="relative overflow-hidden mb-15">
                         <div
@@ -1138,7 +1148,8 @@
                   <div class="col-span-12 s:col-span-5">
                     <a
                       href="./assets/home/beds/w78.jpg"
-                      class="project-card group"
+                      class=" group glightbox"
+                      data-gallery="feats"
                     >
                       <div class="relative overflow-hidden mb-15">
                         <div
@@ -1196,7 +1207,8 @@
                   >
                     <a
                       href="./assets/home/sofas/vlcsnap-2026-07-03-12h30m19s418.jpg"
-                      class="project-card group"
+                      class=" group glightbox"
+                      data-gallery="feats"
                     >
                       <div class="relative overflow-hidden mb-15">
                         <div
@@ -2066,5 +2078,15 @@
       data-cf-beacon='{"version":"2024.11.0","token":"4f01f297840241d29838228ef3e8dd4f","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
       crossorigin="anonymous"
     ></script>
+
+    <script>
+const lightbox = GLightbox({
+  selector: '.glightbox',
+  touchNavigation: true,
+  loop: true,
+  zoomable: true,
+});
+</script>
+
   </body>
 </html>
