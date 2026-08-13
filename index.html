@@ -932,15 +932,15 @@
                               "
                             /> -->
                             <source
-                              type="image/jpeg"
+                              type="image/png"
                               srcset="
-                                ./assets/home/sofas/w75.jpg  720w,
-                                ./assets/home/sofas/w75.jpg 1024w,
-                                ./assets/home/sofas/w75.jpg 1500w
+                                ./assets/home/sofas/w75.PNG  720w,
+                                ./assets/home/sofas/w75.PNG 1024w,
+                                ./assets/home/sofas/w75.PNG 1500w
                               "
                             />
                             <img
-                              src="./assets/home/sofas/w75.jpg"
+                              src="./assets/home/sofas/w75.PNG"
                               width="1500"
                               height="1000"
                               alt=""
@@ -1748,6 +1748,65 @@
         </article>
       </main>
 
+      <script
+      type="text/javascript"
+      defer="defer"
+      src="./dist.js"
+      id="app-js"
+      ></script>
+
+      <script src="./switch.js" data-taxi-reload></script>
+
+
+      <div id="productPreviewOverlay">
+
+        <button
+            id="previewClose"
+            type="button"
+            aria-label="Close preview"
+        >
+            ×
+        </button>
+
+
+        <button
+            id="previewPrev"
+            type="button"
+            class="preview-arrow preview-prev"
+            aria-label="Previous image"
+        >
+            ‹
+        </button>
+
+
+        <div id="previewContent">
+
+            <img
+                id="previewImage"
+                src=""
+                alt=""
+            >
+
+
+            <div id="previewThumbnails"></div>
+
+        </div>
+
+
+        <button
+            id="previewNext"
+            type="button"
+            class="preview-arrow preview-next"
+            aria-label="Next image"
+        >
+            ›
+        </button>
+
+      </div>
+
+
+
+
       <div
         class="fixed inset-0 pointer-events-none flex z-[9999] opacity-0 dado-grid"
       >
@@ -1785,9 +1844,14 @@
     <script
       type="text/javascript"
       defer="defer"
-      src="https://www.studiodado.com/wp-content/themes/studio-dado/dist/app.b366023587c0fc5e80fb.js?ver=1761728095"
+      src="./dist.js"
       id="app-js"
     ></script>
+
+    <script src="./switch.js" data-taxi-reload></script>
+
+    
+
     <script id="wp-emoji-settings" type="application/json">
       {
         "baseUrl": "https://s.w.org/images/core/emoji/17.0.2/72x72/",
@@ -1960,6 +2024,11 @@ const lightbox = GLightbox({
   zoomable: true,
 });
 </script>
+
+<script
+      src="./view.js"
+      defer
+></script>
 
   </body>
 </html>
