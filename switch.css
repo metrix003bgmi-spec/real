@@ -1,0 +1,10 @@
+
+.js-trigger-button {
+    opacity: .4;
+    transition: opacity .3s ease;
+    cursor: pointer;
+}
+
+.js-trigger-button.active {
+    opacity: 1;
+}
