@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">ROCHE BOBOIS | Product</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Open Sans"', 'sans-serif'],
+                        lato: ['Lato', 'sans-serif'],
+                    },
+                    colors: {
+                        'rb-black': '#000000',
+                        'rb-gray': '#656565',
+                        'rb-light': '#f4f4f4',
+                        'rb-border': '#e5e5e5'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Hide scrollbar for gallery thumbnails */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Smooth Accordion Transition */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+        }
+        .accordion-content.open {
+            max-height: 500px;
+            padding-bottom: 1.5rem;
+        }
+
+        /* Main Image Fade Transition */
+        #dyn-main-image {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Custom Checkmark for Swatches */
+        .swatch.active::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 0.8rem;
+            text-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+        }
+        
+        /* Loading fade */
+        #app-container {
+            transition: opacity 0.4s ease;
+        }
+    </style>
+</head>
+<body class="bg-white m-0 p-0 font-sans antialiased text-rb-black">
+
+    <!-- Header -->
+    <header class="w-full bg-white border-b border-rb-border flex items-center justify-between px-6 md:px-10 py-5 sticky top-0 z-50">
+        <div class="flex items-center gap-4 cursor-pointer hover:opacity-70 transition">
+            <i class="fas fa-bars text-xl"></i>
+            <span class="hidden md:block uppercase text-xs font-semibold tracking-widest">Menu</span>
+        </div>
+        <div class="absolute left-1/2 transform -translate-x-1/2 cursor-pointer">
+            <h1 class="font-lato text-2xl font-bold tracking-[0.2em] uppercase">Roche Bobois</h1>
+        </div>
+        <div class="flex items-center gap-6 text-gray-600">
+            <i class="fas fa-search text-lg cursor-pointer hover:text-black transition"></i>
+            <i class="fas fa-map-marker-alt text-lg cursor-pointer hover:text-black transition hidden md:block"></i>
+            <i class="far fa-heart text-lg cursor-pointer hover:text-black transition"></i>
+        </div>
+    </header>
+
+    <!-- App Container (Fades in once data is loaded) -->
+    <div id="app-container" class="opacity-0">
+        <!-- Breadcrumbs -->
+        <div class="max-w-[1600px] mx-auto px-6 md:px-12 py-4">
+            <nav class="text-xs uppercase tracking-widest text-gray-400 font-semibold flex gap-2">
+                <a href="#" class="hover:text-black transition">Home</a>
+                <span>/</span>
+                <a href="#" class="hover:text-black transition" id="dyn-breadcrumb-category">Category</a>
+                <span>/</span>
+                <span class="text-black" id="dyn-breadcrumb-name">Product Name</span>
+            </nav>
+        </div>
+
+        <!-- Product Detail Layout -->
+        <main class="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 flex flex-col lg:flex-row gap-12 lg:gap-20 relative">
+            
+            <!-- Left Column: Image Gallery -->
+            <div class="w-full lg:w-3/5 flex flex-col gap-4">
+                <!-- Main Display Image -->
+                <div class="w-full bg-rb-light aspect-[4/3] relative flex items-center justify-center overflow-hidden cursor-zoom-in group">
+                    <img id="dyn-main-image" src="" alt="Main Product Image" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                </div>
+
+                <!-- Dynamic Thumbnails Container -->
+                <div id="dyn-thumbnails-container" class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                    <!-- Thumbnails will be injected here by JS -->
+                </div>
+            </div>
+
+            <!-- Right Column: Product Information (Sticky) -->
+            <div class="w-full lg:w-2/5 relative">
+                <div class="lg:sticky lg:top-32 flex flex-col">
+                    
+                    <!-- Headers -->
+                    <h2 id="dyn-product-name" class="font-lato text-4xl md:text-5xl font-light uppercase tracking-wide mb-2">Name</h2>
+                    <h3 id="dyn-product-type" class="text-lg uppercase tracking-widest text-gray-500 font-semibold mb-4">Type</h3>
+                    <p id="dyn-designer" class="font-sans text-sm text-rb-gray mb-8">Designer</p>
+
+                    <!-- Configuration/Swatches -->
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs uppercase tracking-widest font-semibold">Upholstery: <span id="current-color-name" class="text-gray-500 font-normal">Loading...</span></span>
+                            <a href="#" class="text-xs underline text-gray-500 hover:text-black transition">View all materials</a>
+                        </div>
+                        
+                        <!-- Dynamic Swatches Container -->
+                        <div id="dyn-swatches-container" class="flex flex-wrap gap-3">
+                            <!-- Swatches injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Dimensions Preview -->
+                    <div class="mb-8 text-sm text-gray-600 font-light flex items-center gap-2">
+                        <i class="fas fa-ruler-combined text-gray-400"></i>
+                        <span id="dyn-dim-metric">Metric Dims</span>
+                        <span class="text-gray-300 mx-2">|</span>
+                        <span id="dyn-dim-imperial">Imperial Dims</span>
+                    </div>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col gap-3 mb-10">
+                        <button class="w-full bg-black text-white text-xs font-bold uppercase tracking-widest py-4 hover:bg-gray-800 transition">
+                            Add to Selection
+                        </button>
+                        <button class="w-full bg-white border border-black text-black text-xs font-bold uppercase tracking-widest py-4 hover:bg-rb-light transition flex justify-center items-center gap-2">
+                            <i class="fas fa-map-marker-alt"></i> Find a Showroom
+                        </button>
+                    </div>
+
+                    <!-- Accordions -->
+                    <div class="border-t border-rb-border">
+                        <!-- Description Accordion -->
+                        <div class="accordion-item border-b border-rb-border">
+                            <button class="accordion-toggle w-full py-5 flex justify-between items-center text-left focus:outline-none group">
+                                <span class="text-sm font-semibold uppercase tracking-widest group-hover:text-gray-500 transition">Product Details</span>
+                                <i class="fas fa-plus text-xs text-gray-400 transition-transform duration-300 icon"></i>
+                            </button>
+                            <div class="accordion-content text-sm text-rb-gray font-light leading-relaxed">
+                                <div id="dyn-details">Details go here...</div>
+                                <p class="mt-2">Manufactured in Europe.</p>
+                            </div>
+                        </div>
+
+                        <!-- Dimensions Accordion -->
+                        <div class="accordion-item border-b border-rb-border">
+                            <button class="accordion-toggle w-full py-5 flex justify-between items-center text-left focus:outline-none group">
+                                <span class="text-sm font-semibold uppercase tracking-widest group-hover:text-gray-500 transition">Dimensions</span>
+                                <i class="fas fa-plus text-xs text-gray-400 transition-transform duration-300 icon"></i>
+                            </button>
+                            <div class="accordion-content text-sm text-rb-gray font-light leading-relaxed">
+                                <ul id="dyn-dim-list" class="list-disc pl-5 mb-4 space-y-1">
+                                    <!-- List injected by JS -->
+                                </ul>
+                                <p class="text-xs text-gray-400 italic">With some exceptions, all Roche Bobois products are available in a large array of materials, colours and dimensions. Our sales associates are at your disposal for all information, advices and specifications you might need.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Test Navigation: Dynamic Links to Switch Products -->
+        <section class="bg-rb-light py-16 px-6 md:px-12 border-t border-rb-border">
+            <div class="max-w-[1600px] mx-auto">
+                <h3 class="font-lato text-2xl uppercase tracking-widest mb-10 text-center">Test Dynamic Routing (Click to switch product)</h3>
+                
+                <div class="flex flex-wrap justify-center gap-6">
+                    <!-- Note: Clicking these adds '?id=xyz' to the URL, which the script detects and uses to render new data -->
+                    <a href="?id=ambre" class="bg-white px-8 py-4 border border-black uppercase text-sm tracking-widest hover:bg-black hover:text-white transition">Ambre Sofa</a>
+                    <a href="?id=bubble" class="bg-white px-8 py-4 border border-black uppercase text-sm tracking-widest hover:bg-black hover:text-white transition">Bubble Sofa</a>
+                    <a href="?id=mah-jong" class="bg-white px-8 py-4 border border-black uppercase text-sm tracking-widest hover:bg-black hover:text-white transition">Mah Jong</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Dynamic JavaScript Logic -->
+    <script>
+        // 1. Mock JSON Database
+        // In a real app, this would be fetched via an API (e.g., fetch('/api/products/' + id))
+        const productsDB = {
+            "ambre": {
+                id: "ambre",
+                category: "Sofas",
+                name: "Ambre",
+                type: "Large 3-Seat Sofa",
+                designer: "Roche Bobois Studio",
+                images: [
+                    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1540574163026-643ea20ade25?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                ],
+                swatches: [
+                    { name: "Orsetto Fabric - Craie", hex: "#e6e2d8" },
+                    { name: "Orsetto Fabric - Sauge", hex: "#8c9184" },
+                    { name: "Orsetto Fabric - Ardoise", hex: "#4a4b4d" },
+                    { name: "Orsetto Fabric - Camel", hex: "#b58b66" },
+                    { name: "Orsetto Fabric - Chocolat", hex: "#3d2b24" }
+                ],
+                dimensions: {
+                    metric: "W. 240 x H. 74 x D. 105 cm",
+                    imperial: "94.5\"w x 29.1\"h x 41.3\"d",
+                    list: [
+                        "Width: 240 cm (94.5\")",
+                        "Height: 74 cm (29.1\")",
+                        "Depth: 105 cm (41.3\")",
+                        "Seat height: 42 cm (16.5\")"
+                    ]
+                },
+                details: "<p>Upholstered in ORSETTO fabric (33% viscose, 29% acrylic, 15% wool, 8% cotton, 7% polyester, 6% linen, 1% elastane). Seat cushion in bi-density HR polyurethane foam 35-40 kg/m³. Back cushion in HR polyurethane foam 35 kg/m³. Structure in solid fir wood, pine plywood, and engineered composite wood.</p>"
+            },
+            "bubble": {
+                id: "bubble",
+                category: "Sofas",
+                name: "Bubble",
+                type: "Curved 3-Seat Sofa",
+                designer: "Sacha Lakic",
+                images: [
+                    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                ],
+                swatches: [
+                    { name: "Techno 2D - Yellow", hex: "#dcb935" },
+                    { name: "Techno 3D - Cobalt", hex: "#2b4a78" },
+                    { name: "Techno 4D - Graphite", hex: "#525252" }
+                ],
+                dimensions: {
+                    metric: "W. 238 x H. 80 x D. 113 cm",
+                    imperial: "93.7\"w x 31.5\"h x 44.5\"d",
+                    list: [
+                        "Width: 238 cm (93.7\")",
+                        "Height: 80 cm (31.5\")",
+                        "Depth: 113 cm (44.5\")"
+                    ]
+                },
+                details: "<p>Upholstered in TECHNO 2D, 3D or 4D fabric. Completely hand-made, entirely constructed with bi-density HR polyurethane foam on a solid wood frame. Exceptional comfort and bold design.</p>"
+            },
+            "mah-jong": {
+                id: "mah-jong",
+                category: "Modular Sofas",
+                name: "Mah Jong",
+                type: "Modular Sofa Composition",
+                designer: "Hans Hopfer",
+                images: [
+                    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1505693314120-0d443867891c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1512212621149-107ffe572d2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                ],
+                swatches: [
+                    { name: "Kenzo Takada - Asagao", hex: "#c24e5b" },
+                    { name: "Missoni Home - Chevron", hex: "#638ca6" },
+                    { name: "Jean Paul Gaultier - Tartan", hex: "#ab3c35" }
+                ],
+                dimensions: {
+                    metric: "Dimensions vary per composition",
+                    imperial: "Dimensions vary per composition",
+                    list: [
+                        "Seat cushion: W. 95 x H. 19 x D. 95 cm",
+                        "Straight backrest: W. 95 x H. 53 x D. 95 cm",
+                        "Corner backrest: W. 95 x H. 53 x D. 95 cm"
+                    ]
+                },
+                details: "<p>Modular seating system designed by Hans Hopfer. Allows for infinite combinations. Hand-tufted, hand-sewn, and hand-finished. Fabrics chosen from haute couture fashion houses.</p>"
+            }
+        };
+
+        // 2. Fetch and Hydrate Data based on URL Parameter
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Get product ID from URL (e.g. ?id=bubble), fallback to 'ambre'
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 'ambre';
+            
+            // Retrieve product data from our mock database
+            const product = productsDB[productId] || productsDB['ambre'];
+
+            // Hydrate simple text elements
+            document.title = `ROCHE BOBOIS | ${product.name} ${product.type}`;
+            document.getElementById('page-title').textContent = `ROCHE BOBOIS | ${product.name}`;
+            
+            document.getElementById('dyn-breadcrumb-category').textContent = product.category;
+            document.getElementById('dyn-breadcrumb-name').textContent = product.name;
+            
+            document.getElementById('dyn-product-name').textContent = product.name;
+            document.getElementById('dyn-product-type').textContent = product.type;
+            document.getElementById('dyn-designer').textContent = `designed by ${product.designer}`;
+            
+            document.getElementById('dyn-dim-metric').textContent = product.dimensions.metric;
+            document.getElementById('dyn-dim-imperial').textContent = product.dimensions.imperial;
+            
+            document.getElementById('dyn-details').innerHTML = product.details;
+
+            // Hydrate Dimensions List
+            const dimsContainer = document.getElementById('dyn-dim-list');
+            dimsContainer.innerHTML = product.dimensions.list.map(dim => `<li>${dim}</li>`).join('');
+
+            // Hydrate Images (Main and Thumbnails)
+            const mainImage = document.getElementById('dyn-main-image');
+            mainImage.src = product.images[0]; // Set first image as default
+
+            const thumbsContainer = document.getElementById('dyn-thumbnails-container');
+            thumbsContainer.innerHTML = product.images.map((imgUrl, index) => {
+                const borderClass = index === 0 ? 'border-black' : 'border-transparent hover:border-gray-300';
+                return `
+                    <button class="thumbnail-btn flex-shrink-0 w-24 h-24 border-2 ${borderClass} transition overflow-hidden" data-src="${imgUrl}">
+                        <img src="${imgUrl}" class="w-full h-full object-cover" alt="Thumbnail ${index + 1}">
+                    </button>
+                `;
+            }).join('');
+
+            // Hydrate Swatches
+            const swatchesContainer = document.getElementById('dyn-swatches-container');
+            document.getElementById('current-color-name').textContent = product.swatches[0].name; // default selected name
+            
+            swatchesContainer.innerHTML = product.swatches.map((swatch, index) => {
+                const activeClass = index === 0 ? 'active ring-2 ring-black' : 'hover:ring-2 hover:ring-gray-300';
+                return `
+                    <button class="swatch relative w-10 h-10 rounded-full border border-gray-300 ring-offset-2 transition focus:outline-none ${activeClass}" 
+                            style="background-color: ${swatch.hex};" 
+                            data-name="${swatch.name}"></button>
+                `;
+            }).join('');
+
+            // Initialize Interactivity AFTER DOM is injected
+            initializeInteractivity(mainImage);
+
+            // Fade in the App Container
+            document.getElementById('app-container').classList.remove('opacity-0');
+        });
+
+        // 3. Setup Event Listeners
+        function initializeInteractivity(mainImage) {
+            
+            // Thumbnail Clicks
+            const thumbnails = document.querySelectorAll('.thumbnail-btn');
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    thumbnails.forEach(t => {
+                        t.classList.remove('border-black');
+                        t.classList.add('border-transparent');
+                    });
+                    this.classList.remove('border-transparent');
+                    this.classList.add('border-black');
+
+                    // Fade transition
+                    mainImage.style.opacity = 0;
+                    setTimeout(() => {
+                        mainImage.src = this.getAttribute('data-src');
+                        mainImage.style.opacity = 1;
+                    }, 300);
+                });
+            });
+
+            // Swatch Clicks
+            const swatches = document.querySelectorAll('.swatch');
+            const colorNameDisplay = document.getElementById('current-color-name');
+
+            swatches.forEach(swatch => {
+                swatch.addEventListener('click', function() {
+                    swatches.forEach(s => {
+                        s.classList.remove('active', 'ring-2', 'ring-black');
+                        s.classList.add('hover:ring-2', 'hover:ring-gray-300');
+                    });
+                    this.classList.add('active', 'ring-2', 'ring-black');
+                    this.classList.remove('hover:ring-2', 'hover:ring-gray-300');
+                    colorNameDisplay.textContent = this.getAttribute('data-name');
+                });
+            });
+
+            // Accordion Clicks
+            const accordions = document.querySelectorAll('.accordion-item');
+            accordions.forEach(item => {
+                const button = item.querySelector('.accordion-toggle');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.icon');
+
+                button.addEventListener('click', () => {
+                    const isOpen = content.classList.contains('open');
+
+                    // Close others (optional)
+                    accordions.forEach(acc => {
+                        acc.querySelector('.accordion-content').classList.remove('open');
+                        const accIcon = acc.querySelector('.icon');
+                        accIcon.classList.remove('fa-minus');
+                        accIcon.classList.add('fa-plus');
+                        accIcon.style.transform = 'rotate(0deg)';
+                    });
+
+                    if (!isOpen) {
+                        content.classList.add('open');
+                        icon.classList.remove('fa-plus');
+                        icon.classList.add('fa-minus');
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
